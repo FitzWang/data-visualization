@@ -22,7 +22,7 @@ medal_count_year_top10 = medal_count_year_withCate.loc[medal_count_year_withCate
 year_unique = medal_count_year_top10["Year"].unique().tolist()
 name_unique = medal_count_year_top10["name"].unique().tolist()
 heatmap = hv.HeatMap(medal_count_year_top10, ["Year", "name"],["Medal"])
-heatmap.opts(opts.HeatMap(radial=True, start_angle=np.pi/2, width=500, height=500,
+heatmap.opts(opts.HeatMap(radial=True,colorbar=True, start_angle=np.pi/2, width=500, height=500,
     yticks=None,xticks=year_unique,tools=['hover'],toolbar='above'))
 
 slider_year = alt.binding_range(min=1896, max=2016, step=4, name='Year:')
@@ -63,4 +63,4 @@ olympic_bar_text = (olympic_bar+olympic_text).transform_filter(
     selector_year
 )
     
-pn.Row(pn.pane.Vega(olympic_bar_text,width=700, height=500),heatmap).show()
+pn.Row(pn.pane.Vega(olympic_bar_text,width=700, height=500),pn.pane.HoloViews(heatmap,width=550, height=500)).show()
